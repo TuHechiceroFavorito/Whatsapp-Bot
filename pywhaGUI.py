@@ -85,68 +85,100 @@ class PutoBotTocaCojones:
 bot=0
 
 def iniciar():
+    salida['text']="Iniciando bot"
     global bot
     bot=PutoBotTocaCojones()
+    salida['text']="Bot iniciado"
 
 def buscar(nombre):
+    salida['text']="Buscando a %s" %(nombre)
     global bot
     bot.buscar(nombre)
 
 def seleccionar():
     global bot
     bot.seleccionar()
+    salida['text']="Contacto seleccionado"
 
 def enviar(mensaje,numero):
     global bot
     numero=int(numero)
     bot.enviar(mensaje,numero)
+    salida['text']='"%s" enviado %i veces' %(mensaje, numero)
 
 def salir():
     global bot
     bot.salir()
+    salida['text']="Bot cerrado"
 
 
 screen = tk.Tk()
 
-canvas=tk.Canvas(screen, height=600, width=600, bg="#FF6B21")
+screen.title("Bot Whatsapp")
+
+screen.iconbitmap("bot.ico")
+
+fondo=PhotoImage(file="bot.png")
+
+canvas=tk.Canvas(screen, height=550, width=700, bg="#FF6B21")
 canvas.pack()
+#canvas.place(relwidth=1,relheight=1)
 
-#frame=tk.Frame(screen,bg="white")
-#frame.place(relheight=0.8, relwidth=0.8, relx=0.1, rely=0.1)
+back=Label(canvas, image=fondo)
+back.place(relwidth=1, relheight=1)
 
-iniciar=tk.Button(canvas, text="Iniciar bot", bg="green", command=iniciar)
-iniciar.place(relheight=0.05, relwidth=0.3,relx=0.35,rely=0.2)
+frame1=tk.Frame(canvas, bd=5,bg="#35CCD1")
+frame1.place(relx=0.5,rely=0.025, relheight=0.05, relwidth=0.2, anchor='n')
 
-entrada=Entry(canvas,bd=5)
-entrada.place(relheight=0.05, relwidth=0.3,relx=0.35,rely=0.35)
+frame2=tk.Frame(canvas, bd=3,bg="#35CCD1")
+frame2.place(relx=0.5,rely=0.1, relheight=0.05, relwidth=0.8, anchor='n')
 
-#texto=Text(screen)
-#texto.place(relheight=0.05, relwidth=0.3,relx=0.35,rely=0.35)
+iniciar=tk.Button(frame1, text="Iniciar bot", bg="green", command=iniciar)
+iniciar.place(relheight=1, relwidth=1)
 
-botonBuscar=tk.Button(canvas, text="Buscar contacto", bg="green", command=lambda: buscar(entrada.get()))
-botonBuscar.place(relheight=0.05, relwidth=0.3,relx=0.2,rely=0.4)
+contacto=Label(frame2, text="Contacto:", bg="white")
+contacto.place(relwidth=0.2, relheight=1)
 
-seleccionar=tk.Button(canvas, text="Seleccionar contacto", bg="green", command=seleccionar)
-seleccionar.place(relheight=0.05, relwidth=0.3,relx=0.5,rely=0.4)
+entrada=Entry(frame2,bd=5)
+entrada.place(relheight=1, relwidth=0.6, relx=0.2)
 
+botonBuscar=tk.Button(frame2, text="Buscar contacto", bg="green", command=lambda: buscar(entrada.get()))
+botonBuscar.place(relheight=1, relwidth=0.2,relx=0.8)
 
-mensaje=Entry(canvas,bd=5)
-mensaje.place(relheight=0.05, relwidth=0.3,relx=0.35,rely=0.5)
+frame3=tk.Frame(canvas, bd=3, bg="#35CCD1")
+frame3.place(relx=0.5,rely=0.2, relheight=0.05, relwidth=0.2, anchor='n')
 
-numero=Entry(canvas,bd=5)
-numero.place(relheight=0.05, relwidth=0.05,relx=0.6,rely=0.5)
+seleccionar=tk.Button(frame3, text="Seleccionar contacto", bg="green", command=seleccionar)
+seleccionar.place(relheight=1, relwidth=1)
 
-botonEnviar=tk.Button(canvas, text="Enviar mensaje", bg="green",command=lambda: enviar(mensaje.get(),numero.get()))
-botonEnviar.place(relheight=0.05, relwidth=0.3,relx=0.35,rely=0.55)
+frame4=tk.Frame(canvas,bd=5, bg="#35CCD1")
+frame4.place(relx=0.5,rely=0.3, relheight=0.2, relwidth=0.8, anchor='n')
 
-botonSalir=tk.Button(canvas,text="Cerrar bot", bg="green", command=salir)
-botonSalir.place(relheight=0.05, relwidth=0.3,relx=0.35,rely=0.9)
+text1=Label(frame4,bg="White", text="Mensaje:")
+text1.place(relwidth=0.15, relheight=0.25)
 
-#texto=Text(screen)
-#texto.pack()
+mensaje=Entry(frame4,bd=5)
+mensaje.place(relheight=0.25, relwidth=0.85, relx=0.15)
+
+text2=tk.Label(frame4,text="Número de mensajes:")
+text2.place(relwidth=0.27, relheight=0.25, rely=0.3)
+
+numero=Entry(frame4,bd=5)
+numero.place(relheight=0.25, relwidth=0.73,relx=0.27,rely=0.3)
+
+botonEnviar=tk.Button(frame4, text="Enviar mensaje", bg="green",command=lambda: enviar(mensaje.get(),numero.get()))
+botonEnviar.place(relheight=0.25, relwidth=0.25,relx=0.375,rely=0.65)
+
+frame5=Frame(canvas,bd=5, bg="#35CCD1")
+frame5.place(relx=0.5,rely=0.6, relheight=0.2, relwidth=0.8, anchor='n')
+
+salida=Label(frame5,bd=5, font=("Modern",18),text="Bienvenido al bot tocacojones de Whatsapp. \n Disfrute de su uso poco responsable")
+salida.place(relheight=1,relwidth=1)
+
+frame6=Frame(canvas,bd=5, bg="#35CCD1")
+frame6.place(relx=0.5,rely=0.85, relheight=0.05, relwidth=0.2, anchor='n')
+
+botonSalir=tk.Button(frame6,text="Cerrar bot", bg="green", command=salir)
+botonSalir.place(relheight=1, relwidth=1)
 
 screen.mainloop()
-"""
-while True:
-    g=texto.get()
-    print(g)"""
