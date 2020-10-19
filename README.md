@@ -1,2 +1,2 @@
 # Whatsapp-Bot
-Un bot para tocar los cojones
+Un bot para automatizar el envio de mensajes
