@@ -1,2 +1,2 @@
 # Whatsapp-Bot
-Un bot para automatizar el envio de mensajes por whatsapp
+Un bot para automatizar el envio de mensajes por WhatsApp
